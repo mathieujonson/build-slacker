@@ -12,8 +12,8 @@
         needsQaListId:     '57d305e5d0e02587c9d94dd9',
         iconEmoji:         ':robot_face:',
         botName:           'Trello Helper',
-        webhook:           'https://hooks.slack.com/services/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',
-        channelId:         '#selfslack',
+        webhook:           '', /* Ask me for the hook */
+        channelId:         '#webdev',
         trelloBaseApi:     'https://api.trello.com/1',
         href:              null,
         isFirstInit:       true,
@@ -237,7 +237,7 @@
             var isApproved = e.target.classList.contains('approve-button');
 
             // Set the comment, and the destination
-            var comment =     isApproved ? `This card is ready for @somebody` : `This card has some issues, let's talk!`,
+            var comment =     isApproved ? `This card is ready for @caleresqa` : `This card has some issues, let's talk!`,
                 destination = isApproved ? vars.needsQaListId : vars.returnedListId;
 
             // Post a comment on the card
