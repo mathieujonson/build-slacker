@@ -1,20 +1,19 @@
 <!doctype html>
 <html>
     <head>
-        <title>Trello Helper</title>
+        <title>Build Slacker</title>
         <link rel="stylesheet" href="popup.css">
     </head>
     <body>
         <header>
-            <h1>Trello Helper</h1>
+            <h1>Build Slacker</h1>
         </header>
         <div class="container">
-            <label for="js-api-key">API Key</label>
-            <span class="key-span">Key Set</span>
-            <input type="text" id="js-api-key">
+            <label for="js-webhook">Slack Webhook</label>
+            <span class="webhook-span">Webhook Set</span>
+            <input type="text" id="js-webhook">
             <div class="user-options">
-                <a href="https://trello.com/app-key" target="_blank">Find it here</a>
-                <button class="js-submit-api">Set It</button>
+                <button class="js-submit-webhook">Set It</button>
             </div>
         </div>
         <script src="popup.js"></script>

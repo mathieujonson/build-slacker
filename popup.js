@@ -4,99 +4,97 @@
     // Our elements
     var eles = {
         container: document.getElementsByClassName('container')[0],
-        apiKey:    document.getElementById('js-api-key'),
-        submitApi: document.getElementsByClassName('js-submit-api')[0]
+        webhook:    document.getElementById('js-webhook'),
+        submitWebhook: document.getElementsByClassName('js-submit-webhook')[0]
     };
 
     // Our variables
-    var vars = {
-        key:   null,
-        token: null
-    };
+    var vars = {};
 
     // Our functions
     var funcs = {
         init: () => {
-            chrome.storage.sync.get('apiKey', (data) => {
-                if(data.apiKey) {
+            chrome.storage.sync.get('webhook', (data) => {
+                if(data.webhook) {
                     // Populate the input
-                    eles.apiKey.value = data.apiKey;
+                    eles.webhook.value = data.webhook;
 
-                    // Add the token markup
-                    eles.container.insertAdjacentHTML('beforeend', tmpls.tokenMarkup(eles.apiKey.value));
-                    document.getElementsByClassName('js-submit-token')[0].addEventListener('click', funcs.setApiToken);
+                    // Add the channel markup
+                    eles.container.insertAdjacentHTML('beforeend', tmpls.channelMarkup());
+                    document.getElementsByClassName('js-submit-channel')[0].addEventListener('click', funcs.setChannel);
 
                     // Show the set message
-                    document.getElementsByClassName('key-span')[0].classList.add('show');
+                    document.getElementsByClassName('webhook-span')[0].classList.add('show');
 
-                    chrome.storage.sync.get('apiToken', (data) => {
-                        if(data.apiToken) {
+                    chrome.storage.sync.get('channel', (data) => {
+                        if(data.channel) {
                             // Populate the input
-                            document.getElementById('js-api-token').value = data.apiToken;
+                            document.getElementById('js-channel').value = data.channel;
 
                             // Show the set message
-                            document.getElementsByClassName('token-span')[0].classList.add('show');
+                            document.getElementsByClassName('channel-span')[0].classList.add('show');
+
+                            // Set the listener
+                            document.getElementById('js-channel').addEventListener('input', funcs.removeChannel);
                         }
                     });
                 }
             });
-            document.getElementById('js-api-key').addEventListener('input', funcs.removeKey);
+            document.getElementById('js-webhook').addEventListener('input', funcs.removeWebhook);
         },
-        setApiKey: () => {
+        setWebhook: () => {
             // Set the key in storage
-            chrome.storage.sync.set({'apiKey': eles.apiKey.value});
+            chrome.storage.sync.set({'webhook': eles.webhook.value});
 
             // Display set message
-            document.getElementsByClassName('key-span')[0].classList.add('show');
+            document.getElementsByClassName('webhook-span')[0].classList.add('show');
 
             // Display the token markup if it doesn't already exist
-            if(!document.getElementById('js-api-token')) {
-                eles.container.insertAdjacentHTML('beforeend', tmpls.tokenMarkup(eles.apiKey.value));
-                document.getElementsByClassName('js-submit-token')[0].addEventListener('click', funcs.setApiToken);
-                document.getElementById('js-api-token').addEventListener('input', funcs.removeToken);
+            if(!document.getElementById('js-channel')) {
+                eles.container.insertAdjacentHTML('beforeend', tmpls.channelMarkup(eles.webhook.value));
+                document.getElementsByClassName('js-submit-channel')[0].addEventListener('click', funcs.setChannel);
+                document.getElementById('js-channel').addEventListener('input', funcs.removeChannel);
             }
         },
-        setApiToken: () => {
+        setChannel: () => {
             // Display set message
-            document.getElementsByClassName('token-span')[0].classList.add('show');
-
+            document.getElementsByClassName('channel-span')[0].classList.add('show');
 
             // Set the token in storage
-            chrome.storage.sync.set({'apiToken': document.getElementById('js-api-token').value});
+            chrome.storage.sync.set({'channel': document.getElementById('js-channel').value});
         },
-        removeKey: () => {
+        removeWebhook: () => {
             // Remove it
-            chrome.storage.sync.remove('apiKey');
+            chrome.storage.sync.remove('channel');
 
             // Also remove the token
-            chrome.storage.sync.remove('apiToken');
+            chrome.storage.sync.remove('webhook');
 
             // Hide set message
-            document.getElementsByClassName('key-span')[0].classList.remove('show');
+            document.getElementsByClassName('webhook-span')[0].classList.remove('show');
 
             // Remove the token container
-            document.getElementsByClassName('token-container')[0].remove();
+            document.getElementsByClassName('channel-container')[0].remove();
         },
-        removeToken: () => {
+        removeChannel: () => {
             // Remove it
-            chrome.storage.sync.remove('apiToken');
+            chrome.storage.sync.remove('channel');
 
             // Hide set message
-            document.getElementsByClassName('token-span')[0].classList.remove('show');
+            document.getElementsByClassName('channel-span')[0].classList.remove('show');
         },
     };
 
     // Our markup
     var tmpls = {
-        tokenMarkup: (apiKey) => {
+        channelMarkup: () => {
             return `
-                <div class="token-container">
-                    <label for="js-api-token">API Token</label>
-                    <span class="token-span">Token Set</span>
-                    <input type="text" id="js-api-token">
+                <div class="channel-container">
+                    <label for="js-channel">Channel Id</label>
+                    <span class="channel-span">Channel Set</span>
+                    <input type="text" id="js-channel">
                     <div class="user-options">
-                        <a href="https://trello.com/1/authorize?key=${apiKey}&scope=read%2Cwrite&name=trelloHelper&expiration=never&response_type=token" class="js-token-help" target="blank">Find it here</a>
-                        <button class="js-submit-token">Set It</button>
+                        <button class="js-submit-channel">Set It</button>
                     </div>
                 </div>
             `;
@@ -104,7 +102,7 @@
     };
 
     // Our listeners
-    eles.submitApi.addEventListener('click', funcs.setApiKey);
+    eles.submitWebhook.addEventListener('click', funcs.setWebhook);
 
     funcs.init();
 })();

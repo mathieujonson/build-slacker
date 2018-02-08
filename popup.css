@@ -19,7 +19,7 @@ h1 {
     justify-content:space-between;
     align-items:center;
 }
-.token-container {
+.channel-container {
     width:100%;
     display:flex;
     flex-wrap:wrap;
@@ -59,7 +59,7 @@ a, a:visited, a:focus, a:active {
 .user-options {
     width:100%;
     display:flex;
-    justify-content:space-between;
+    justify-content:flex-end;
     align-items: center;
     margin-bottom:20px;
 }
