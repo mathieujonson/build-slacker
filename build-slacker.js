@@ -33,9 +33,26 @@
 
             document.addEventListener('click', (e) => {
                 if(e.target.id === 'runCustomBuildButton') {
-                    funcs.sendToSlack('running a build: ' + document.getElementById('parameter_website_name').value)
+                    funcs.sendBuildInfo()
                 }
             })
+        },
+        sendBuildInfo: () => {
+
+            var environment = '',
+                dialogTitle = document.getElementById('runBuildTitle')
+
+            if(/dev1/i.test(dialogTitle)) {
+                environment = 'dev1.'
+            }
+            else if(/stg/i.test(dialogTitle)) {
+                environment = 'stg.'
+            }
+            else if(/uat/i.test(dialogTitle)){
+                environment = 'uat2.'
+            }
+
+            funcs.sendToSlack('running a build: ' + environment + document.getElementById('parameter_website_name').value)
         },
         sendToSlack: (text) => {
             // Build the payload to Slack
