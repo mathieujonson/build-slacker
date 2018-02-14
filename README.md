@@ -1,5 +1,5 @@
-# trello-helper
-Chrome extension for Trello, specifically for the Caleres boards.
+# Build Slacker
+Chrome extension that notifies Slack Channels of builds being run from TeamCity.
 
 This is a beta version, and there are a few kinks to work out.  However, it's usable, and ready to be fully tested!
 If you find any bugs, don't hesitate to open an issue, though I'm not sure I'll be getting to them anytime soon.  Feel
