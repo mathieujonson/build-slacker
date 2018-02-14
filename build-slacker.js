@@ -40,7 +40,7 @@
         sendBuildInfo: () => {
 
             var environment = '',
-                dialogTitle = document.getElementById('runBuildTitle')
+                dialogTitle = document.getElementById('runBuildTitle').innerText
 
             if(/dev1/i.test(dialogTitle)) {
                 environment = 'dev1.'
