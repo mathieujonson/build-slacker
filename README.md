@@ -14,3 +14,4 @@ free to fork and create a pull request if you think you can fix it!
 - Click "Load unpacked extensions", and select the folder you downloaded
 - Click the "BS" icon in the top-right of the Chrome window
 - Fill out the Webhook ID and the Slack Channel
+  - The Slack Channel accepts a comma separated list
